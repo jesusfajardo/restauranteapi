@@ -8,6 +8,9 @@ var indexRouter = require('./routes/index');
 
 
 var usersRouter = require('./routes/api/users');
+var productosRouter = require('./routes/api/productos');
+var mensajesRouter = require('./routes/api/mensajes');
+var citasRouter = require('./routes/api/citas');
 const port = 8000;
 
 var app = express();
@@ -24,6 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/productos', productosRouter);
+app.use('/api/mensajes', mensajesRouter);
+app.use('/api/citas', citasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

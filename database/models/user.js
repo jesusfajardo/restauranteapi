@@ -23,7 +23,11 @@ const usuarioSchema = Schema({
         default: Date.now()
     },
     avatar: String,
-    tipo: String // comprador, vendedor
+    tipo: {
+      type:String,
+      enum:['comprador', 'vendedor']// comprador, vendedor
+    }
+
 });
 
 const usuario = mongoose.model('Usuario', usuarioSchema);

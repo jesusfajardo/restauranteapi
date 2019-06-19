@@ -30,7 +30,15 @@ router.post('/', function(req, res, next) {
       })
   });
 });
+/* borrar*/
+router.get('/', function(req, res, next) {
 
+  Usuario.find()
+  .exec(function (err, doc) {
+    res.json(doc)
+  });
+});
+/* Borrar*/
 
 /* GET users listing. */
 router.get('/perfil/:id', function(req, res, next) {
