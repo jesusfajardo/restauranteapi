@@ -1,7 +1,7 @@
 const mongoose = require('../connect');
 const Schema = mongoose.Schema;
 const usuarioSchema = Schema({
-    usuario: {
+    name: {
         type: String,
         required: [true, 'debe poner un nombre']
     },

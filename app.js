@@ -11,6 +11,8 @@ var usersRouter = require('./routes/api/users');
 var productosRouter = require('./routes/api/productos');
 var mensajesRouter = require('./routes/api/mensajes');
 var citasRouter = require('./routes/api/citas');
+var imagenesRouter = require('./routes/api/imagenes');
+
 const port = 8000;
 
 var app = express();
@@ -30,6 +32,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/mensajes', mensajesRouter);
 app.use('/api/citas', citasRouter);
+app.use('/api/imagenes', imagenesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

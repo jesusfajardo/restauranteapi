@@ -8,7 +8,7 @@ const Usuario = require('../../database/models/user');
 router.post('/', function(req, res, next) {
   //validar regex
   const data = {
-    usuario: req.body.usuario,
+    name: req.body.name,
     email: req.body.email,
     log: req.body.log,
     lat: req.body.lat,
@@ -38,16 +38,38 @@ router.get('/', function(req, res, next) {
     res.json(doc)
   });
 });
-/* Borrar*/
 
-/* GET users listing. */
-router.get('/perfil/:id', function(req, res, next) {
+
+/* Borrar*/
+/* Actualizar datos de usuario*/
+router.patch('/:id',function(req, res, next){
+  const datos = {name:req.body.name};
+
+  Usuario.updateOne({_id:req.params.id},datos).exec()
+    .then(result => {
+      res.json({
+        message:'Se actualizo el nombre',
+        result
+      });
+    }).catch(err => {
+      res.status(500).json({
+        error: err.message
+      });
+    });
+});
+/* GET Usuario . */
+router.get('/:id', function(req, res, next) {
 
   Usuario.findById(req.params.id,"-password")
   .exec(function (err, doc) {
+    if (err) {
+      res.json({error:err.message})
+    }
     res.json(doc)
   });
 });
+
+
 
 router.post('/login', (req, res, next) => {
     Usuario.find({
@@ -57,14 +79,14 @@ router.post('/login', (req, res, next) => {
         .then(user => {
             if (user.length < 1) {
                 return res.status(401).json({
-                    message: "Auth failed"
+                    error: "Auth failed"
                 });
             }
             console.log(user[0].password);
             var passwordHash = sha1(req.body.password);
             if (user[0].password != passwordHash) {
               return res.status(401).json({
-                  message: "fallo al autenticar"
+                  error: "fallo al autenticar"
               });
             }
             else{
@@ -73,10 +95,12 @@ router.post('/login', (req, res, next) => {
                       userId: user[0]._id
                   },
                   process.env.JWT_KEY || 'secret321');
-
+              console.log(user[0]);
               return res.status(200).json({
                   message: "logeo existoso",
-                  token: token
+                  token: token,
+                  idUser:user[0]._id,
+                  tipo: user[0].tipo
               });
 
             }
