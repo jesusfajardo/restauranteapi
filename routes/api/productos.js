@@ -32,7 +32,7 @@ const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: {
-        fileSize: 1024 * 1024 * 1
+        fileSize: 1024 * 1024 * 5
     }
 }).single('foto');
 
@@ -96,7 +96,7 @@ router.get('/', function (req, res, next) {
         criterios['$text'] = {$search: req.query.descripcion}
     }
 
-    Producto.find(criterios).ne('estado','no disponible').select('-__v').exec().then(docs => {
+    Producto.find(criterios).ne('estado','no disponible').exec().then(docs => {
         if(docs.length == 0){
         return res.status(404).json({message: 'No existen Productos disponibles'});
         }
@@ -115,6 +115,20 @@ router.get('/vendedor/:id', function (req, res, next) {
         return res.status(404).json({message: 'No existen Productos registrados'});
         }
         res.json({data:docs});
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err.message
+        })
+    });
+});
+router.get('/:id', function (req, res, next) {
+    Producto.findOne({_id:req.params.id}).populate('vendedor','-password -__v ').exec().then(doc => {
+        if(doc == null){
+        return res.status(404).json({message: 'No existen Productos registrados'});
+        }
+        console.log(doc);
+        res.json(doc);
     })
     .catch(err => {
         res.status(500).json({

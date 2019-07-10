@@ -26,7 +26,15 @@ const usuarioSchema = Schema({
     tipo: {
       type:String,
       enum:['comprador', 'vendedor']// comprador, vendedor
-    }
+    },
+    like: {
+      type:Number,
+      default:0,
+    },
+    dislike:{
+      type:Number,
+      default:0,
+    },
 
 });
 

@@ -43,12 +43,17 @@ router.get('/', function(req, res, next) {
 /* Borrar*/
 /* Actualizar datos de usuario*/
 router.patch('/:id',function(req, res, next){
-  const datos = {name:req.body.name};
+  const datos = {};
+  Object.keys(req.body).forEach((key) => {
+    if (key != 'email' ||key != 'avatar'  ||key != 'tipo') {
+      datos[key] = req.body[key];
+    }
+  });
 
   Usuario.updateOne({_id:req.params.id},datos).exec()
     .then(result => {
       res.json({
-        message:'Se actualizo el nombre',
+        message:'Se actualizaron los datos',
         result
       });
     }).catch(err => {
@@ -79,7 +84,7 @@ router.post('/login', (req, res, next) => {
         .then(user => {
             if (user.length < 1) {
                 return res.status(401).json({
-                    error: "Auth failed"
+                    error: "no existe el usuario"
                 });
             }
             console.log(user[0].password);
