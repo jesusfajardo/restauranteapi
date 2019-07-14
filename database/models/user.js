@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const usuarioSchema = Schema({
     name: {
         type: String,
-        required: [true, 'debe poner un nombre']
+        required: [true, 'debe poner un nombre'],
+        match: /^[a-z]{3,16}$/,
     },
 
     email: {
@@ -13,7 +14,7 @@ const usuarioSchema = Schema({
     },
     password: {
         type: String,
-        required: ['Contraseña necesaria']
+        required: ['Contraseña necesaria'],
     },
     //telefono: Number,
     log: Number,

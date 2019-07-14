@@ -119,6 +119,29 @@ router.post('/login', (req, res, next) => {
 
 });
 
+router.delete('/:id', function (req, res, next) {
+    let idUsuario = req.params.id;
+    Usuario.deleteOne({_id: idUsuario}).exec()
+        .then(result => {
+            let message = 'Se elimino el usuario';
+            if (result.ok == 0) {
+                message = 'Verifique los datos, no se realizaron cambios';
+            }
+            if (result.ok == 1 && result.n == 0) {
+                message = 'No se encontro el usuario';
+            }
+            res.json({
+                message,
+                result
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        });
+});
+
 
 
 
