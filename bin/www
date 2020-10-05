@@ -50,7 +50,7 @@ function normalizePort(val) {
 }
 
 /**
- * Event listener for HTTP server "error" event.
+ * Detector de eventos para el evento "error" del servidor HTTP
  */
 
 function onError(error) {
@@ -62,7 +62,7 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
+  // manejar errores de escucha específicos con mensajes amigables
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -78,7 +78,7 @@ function onError(error) {
 }
 
 /**
- * Event listener for HTTP server "listening" event.
+ * Detector de eventos para el evento de "escucha" del servidor HTTP
  */
 
 function onListening() {

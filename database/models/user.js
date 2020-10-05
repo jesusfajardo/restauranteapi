@@ -1,3 +1,4 @@
+//usuario
 const mongoose = require('../connect');
 const Schema = mongoose.Schema;
 const usuarioSchema = Schema({

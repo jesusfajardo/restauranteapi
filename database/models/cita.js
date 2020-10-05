@@ -21,7 +21,8 @@ const citaSchema = Schema({
         type:Number,
         require:'Debe poner una cantidad de producto'
     },
-    estado: {   // por confirmar, cancelada, terminada
+    // por confirmar, cancelada, terminada
+    estado: {   
         type: String,
         required: 'Falta el estado'
     },
